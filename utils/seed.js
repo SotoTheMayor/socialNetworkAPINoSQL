@@ -14,21 +14,25 @@ connection.once('open', async () => {
     }
 
     const users = [];
-    const thoughts = randomThought(2);
-
     for (let i=0; i<10; i++) {
         const username = randomName();
         const email = `whatever@aol.com`
-        // const first = fullName.split(' ')[0];
-        // const last = fullName.split(' ')[1];
-
         users.push({
             username,
             email,
         })
     }
 
-    console.log('***************************' + users[5].username + ' ++++++++++++  ' + thoughts[0].thoughtText)
+    const thoughts = [] 
+    for (let i=0; i<users.length; i++) {
+        const username = users[i].username;
+        // const thoughtText = randomThought(2);
+        const thoughtText = randomThought();
+        thoughts.push({
+            username,
+            thoughtText,
+        })
+    }
 
     await User.collection.insertMany(users);
     await Thought.collection.insertMany(thoughts);

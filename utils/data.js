@@ -51,19 +51,22 @@ const randomArrItem = (arr) => arr[Math.floor(Math.random() * arr.length)];
 const randomName = () => 
     `${randomArrItem(firstNames)} ${randomArrItem(lastNames)}`;
 
+const randomThought = () =>
+    `${randomArrItem(thoughts)}`
 
-const randomThought = (int) => {
-    let results = [];
-    for (let i = 0; i < int; i++) {
-        results.push({
-            modelQuality1: ' mQ1 ',
-            thoughtText: randomArrItem(thoughts),
-            modelQuality2: ' mQ2 ',
+// const randomThought = (int) => {
+//     let results = [];
+//     let n = Math.floor(Math.random() * int)
+//     for (let i = 0; i < n; i++) {
+//         results.push({
+            // modelQuality1: ' mQ1 ',
+            // thoughtText: randomArrItem(thoughts),
+            // modelQuality2: ' mQ2 ',
             // tags: [...reactionTags(2)],
-        });
-        return results;
-    }
-}
+//         });
+//         return results;
+//     }
+// }
 
 // const thoughtReactions = (int) => {
 //     if (int === 1) {
