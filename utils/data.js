@@ -48,9 +48,9 @@ const users = [];
 
 const randomArrItem = (arr) => arr[Math.floor(Math.random() * arr.length)];
 
-const randomName = () => {
+const randomName = () => 
     `${randomArrItem(firstNames)} ${randomArrItem(lastNames)}`;
-}
+
 
 const randomThought = (int) => {
     let results = [];

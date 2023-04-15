@@ -6,24 +6,31 @@ connection.on('error', (err) => err);
 
 connection.once('open', async () => {
     console.log('connected');
-    await Thought.deleteMany({});
-    await User.deleteMany({});
+    if (Thought) {
+    await Thought.deleteMany({ });
+    }
+    if (User) {
+    await User.deleteMany({ });
+    }
 
     const users = [];
     const thoughts = randomThought(2);
 
     for (let i=0; i<10; i++) {
-        const fullName = randomName();
-        const first = fullName.split(' ')[0];
-        const last = fullName.split(' ')[1];
+        const username = randomName();
+        const email = `whatever@aol.com`
+        // const first = fullName.split(' ')[0];
+        // const last = fullName.split(' ')[1];
 
         users.push({
-            first,
-            last,
+            username,
+            email,
         })
     }
 
-    await User.connection.insertMany(users);
+    console.log('***************************' + users[5].username + ' ++++++++++++  ' + thoughts[0].thoughtText)
+
+    await User.collection.insertMany(users);
     await Thought.collection.insertMany(thoughts);
 
     console.table(users);
