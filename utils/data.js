@@ -32,16 +32,16 @@ const lastNames = [
     'Reed'
 ]
 
-const reactions = [
-    'Wow',
-    'Amazing',
-    'You have to be joking!',
-    'No way thats true',
-    `I don't believe you`,
-    `I don't have the words`,
-    'My mom says that too',
-    `You're incredible`,
-    `I've heard that before`
+const thoughts = [
+    'Why is there still snow on the ground?!?!',
+    'Soccer is the BEST sport, hands down',
+    'I have opinions, and one of them is that your opinions stink',
+    `I'd like to visit South America one day`,
+    `I cannot WAIT to get outside and backpack`,
+    `Why aren't there more blue cakes? I could go for blue cake.`,
+    `My mom says I'm special`,
+    `Whoever says the Great British Bakeoff isn't the best show ever made is a LIAR`,
+    `Has there been any more information about that one political thing yet?`
 ]
 
 const users = [];
@@ -52,12 +52,12 @@ const randomName = () => {
     `${randomArrItem(firstNames)} ${randomArrItem(lastNames)}`;
 }
 
-const randomReaction = (int) => {
+const randomThought = (int) => {
     let results = [];
     for (let i = 0; i < int; i++) {
         results.push({
             modelQuality1: ' mQ1 ',
-            reaction: randomArrItem(reactions),
+            thoughtText: randomArrItem(thoughts),
             modelQuality2: ' mQ2 ',
             // tags: [...reactionTags(2)],
         });
@@ -65,9 +65,9 @@ const randomReaction = (int) => {
     }
 }
 
-// const reactionTags = (int) => {
+// const thoughtReactions = (int) => {
 //     if (int === 1) {
-//         return randomArrItem(tags);
+//         return randomArrItem(reactions);
 //     }
 //     const results = [];
 //     for (let i = 0; i < int; i++) {
@@ -80,4 +80,4 @@ const randomReaction = (int) => {
 //     }
 // }
 
-module.exports = { randomName, randomReaction}
+module.exports = { randomName, randomThought}

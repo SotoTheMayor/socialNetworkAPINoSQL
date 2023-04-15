@@ -1,16 +1,16 @@
 const connection = require('../config/connection');
-const { User, Reaction } = require('../models');
-const { randomName, randomReaction } = require('./data');
+const { User, Thought } = require('../models');
+const { randomName, randomThought } = require('./data');
 
 connection.on('error', (err) => err);
 
 connection.once('open', async () => {
     console.log('connected');
-    await Reaction.deleteMany({});
+    await Thought.deleteMany({});
     await User.deleteMany({});
 
     const users = [];
-    const reactions = randomReaction(2);
+    const thoughts = randomThought(2);
 
     for (let i=0; i<10; i++) {
         const fullName = randomName();
@@ -24,10 +24,10 @@ connection.once('open', async () => {
     }
 
     await User.connection.insertMany(users);
-    await Reaction.collection.insertMany(reactions);
+    await Thought.collection.insertMany(thoughts);
 
     console.table(users);
-    console.table(reactions);
+    console.table(thoughts);
     console.info('Seeding Complete 🌱')
     process.exit(0);
 
