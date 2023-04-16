@@ -1,16 +1,5 @@
 const { User, Thought } = require('../models');
 
-const friends = async (friendId) =>
-    User.aggregate([
-        { $match: { _id: ObjectId(friendId) } },
-        { $unwind: '$friends'},
-        { $group: { 
-            _id: ObjectId(friendId),
-            friendCount: { $count: '$friends'},
-         } }
-    ]);
-
-
 module.exports = {
     getUsers(req, res) {
         User.find()
@@ -20,14 +9,10 @@ module.exports = {
 
     getSingleUser(req, res) {
         User.findOne({ _id: req.params.userId })
-        .select('-__v')
         .then( async (user) => 
             !user 
                 ? res.status(404).json({ message: 'No user with that ID'}) 
-                : res.json({
-                user,
-                friends: await friends(req.params.userId)
-                })
+                : res.json({user})
         )
         .catch((err) => res.status(500).json(err))
     },

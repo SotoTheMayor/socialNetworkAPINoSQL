@@ -13,12 +13,13 @@ const userSchema = new Schema(
             type: String,
             required: true,
             unique: true,
+            match: [/^([a-z0-9_\.-]+)@([\da-z\.-]+)\.([a-z\.]{2,6})$/],
             // mongoose email validator,
         },
         friends: [
             {
                 type: Schema.Types.ObjectId,
-                ref: 'User',
+                ref: 'user',
             }
         ],
         // thoughts: [Thought],
@@ -29,6 +30,11 @@ const userSchema = new Schema(
         }
     },
 );
+
+userSchema.virtual('totalFriends')
+    .get(function () {
+        return this.friends.length;
+    })
 
 const User = model('user', userSchema);
 
