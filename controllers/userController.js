@@ -40,8 +40,14 @@ module.exports = {
             { $addToSet: { friends: req.params.friendId } },
             { runValidators: true, new: true },
         )
+        .catch((err) => res.status(500).json(err));
+        User.findOneAndUpdate(
+            { _id: req.params.friendId },
+            { $addToSet: { friends: req.params.userId } },
+            { runValidators: true, new: true },
+            )
         .then(() => res.json({ message: 'New friend added'}))
-        .catch((err) => res.status(500).json(err))
+        .catch((err) => res.status(500).json(err));
     },
 
     removeFriend(req, res) {
@@ -50,7 +56,13 @@ module.exports = {
             { $pull: { friends: req.params.friendId } },
             { runValidators: true, new: true },
         )
+        .catch((err) => res.status(500).json(err));
+        User.findOneAndUpdate(
+            { _id: req.params.friendId },
+            { $pull: { friends: req.params.userId } },
+            { runValidators: true, new: true },
+            )
         .then(() => res.json({ message: 'Removed former friend'}))
-        .catch((err) => res.status(500).json(err))
+        .catch((err) => res.status(500).json(err));
     },
 };
