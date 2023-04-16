@@ -34,7 +34,6 @@ const thoughtSchema = new Schema(
         thoughtText: {
             type: String,
             required: true,
-            // trimmed: true,
         },
         createdAt: {
             type: Date,

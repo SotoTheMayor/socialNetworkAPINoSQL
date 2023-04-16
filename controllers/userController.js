@@ -1,5 +1,16 @@
 const { User, Thought } = require('../models');
 
+const friends = async (friendId) =>
+    User.aggregate([
+        { $match: { _id: ObjectId(friendId) } },
+        { $unwind: '$friends'},
+        { $group: { 
+            _id: ObjectId(friendId),
+            friendCount: { $count: '$friends'},
+         } }
+    ]);
+
+
 module.exports = {
     getUsers(req, res) {
         User.find()
@@ -10,8 +21,13 @@ module.exports = {
     getSingleUser(req, res) {
         User.findOne({ _id: req.params.userId })
         .select('-__v')
-        .then((user) => 
-            !user ? res.status(404).json({ message: 'No user with that ID'}) : res.json(user)
+        .then( async (user) => 
+            !user 
+                ? res.status(404).json({ message: 'No user with that ID'}) 
+                : res.json({
+                user,
+                friends: await friends(req.params.userId)
+                })
         )
         .catch((err) => res.status(500).json(err))
     },
@@ -30,6 +46,26 @@ module.exports = {
             : Thought.deleteMany({ _id: { $in: user.thoughts} })
         )
         .then(() => res.json({ message: 'User and associated thoughts and reactions deleted'}))
+        .catch((err) => res.status(500).json(err))
+    },
+
+    addFriend(req, res) {
+        User.findOneAndUpdate(
+            { _id: req.params.userId },
+            { $addToSet: { friends: req.params.friendId } },
+            { runValidators: true, new: true },
+        )
+        .then(() => res.json({ message: 'New friend added'}))
+        .catch((err) => res.status(500).json(err))
+    },
+
+    removeFriend(req, res) {
+        User.findOneAndUpdate(
+            { _id: req.params.userId },
+            { $pull: { friends: req.params.friendId } },
+            { runValidators: true, new: true },
+        )
+        .then(() => res.json({ message: 'Removed former friend'}))
         .catch((err) => res.status(500).json(err))
     },
 };

@@ -6,17 +6,22 @@ const userSchema = new Schema(
         username: {
             type: String,
             required: true,
-            // unique: true,
-            // trimmed: true,
+            unique: true,
+            trim: true,
         },
         email: {
             type: String,
             required: true,
-            // unique: true,
+            unique: true,
             // mongoose email validator,
         },
+        friends: [
+            {
+                type: Schema.Types.ObjectId,
+                ref: 'User',
+            }
+        ],
         // thoughts: [Thought],
-        // friends: [_id],
     },
     {
         toJSON: {
@@ -24,11 +29,6 @@ const userSchema = new Schema(
         }
     },
 );
-
-// userSchema.virtual('friendCount')
-//     .get(function () {
-//         return this.friends.length;
-//     })
 
 const User = model('user', userSchema);
 
