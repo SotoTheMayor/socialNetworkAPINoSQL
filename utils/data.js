@@ -44,25 +44,68 @@ const thoughts = [
     `Has there been any more information about that one political thing yet?`
 ]
 
-const users = [];
+const emailAddress = [
+    'none',
+    'jazzy',
+    'whatever',
+    'email',
+    'justanotheremail',
+    'quickfire',
+    'monster',
+    'philodendron',
+    'monstera',
+    'pothos',
+]
+
+const emailDomain = [
+    'none',
+    'gmail',
+    'yahoo',
+    'aol',
+    'msn',
+    'plants',
+    'moreplants',
+    'idontknow',
+    'a',
+    'b',
+    'c',
+    'd',
+    'e',
+    'f',
+    'g',
+    'h',
+    'i',
+    'j'
+]
+
+// const users = [];
 
 const randomArrItem = (arr) => arr[Math.floor(Math.random() * arr.length)];
 
 const randomName = () => 
     `${randomArrItem(firstNames)} ${randomArrItem(lastNames)}`;
 
-const randomThought = () =>
-    `${randomArrItem(thoughts)}`
+const randomEmail = () =>
+    `${randomArrItem(emailAddress)}@${randomArrItem(emailDomain)}.com`
 
-// const randomThought = (int) => {
+// const randomThought = () =>
+//     `${randomArrItem(thoughts)}`
+function rand () {Math.floor(Math.random() * 10000)};
+
+const randomThought = (username) => {
+    let results = [];
+    results = [username, randomArrItem(thoughts), rand()];
+        return results;
+    }
+
+// const randomThought = (username, int) => {
 //     let results = [];
 //     let n = Math.floor(Math.random() * int)
 //     for (let i = 0; i < n; i++) {
 //         results.push({
-            // modelQuality1: ' mQ1 ',
-            // thoughtText: randomArrItem(thoughts),
-            // modelQuality2: ' mQ2 ',
-            // tags: [...reactionTags(2)],
+//             username: username,
+//             thoughtText: randomArrItem(thoughts),
+//             thoughtId: Math.floor(Math.random() * 100),
 //         });
 //         return results;
 //     }
@@ -83,4 +126,4 @@ const randomThought = () =>
 //     }
 // }
 
-module.exports = { randomName, randomThought}
+module.exports = { randomName, randomThought, randomEmail}
