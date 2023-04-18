@@ -36,10 +36,9 @@ connection.once('open', async () => {
     console.log(thoughts[1].username)
 
     for (let i=0; i<thoughts.length; i++ ) {
-        Thought.findOne({ username: thoughts[i].username })
-        .then((thought) => console.log(thought))
+        await Thought.collection.findOne({ username: thoughts[i].username })
         .then((thought) => {
-         return User.findOneAndUpdate(
+            return User.collection.findOneAndUpdate(
             { username: thought.username },
             { $addToSet: { thoughts: thought._id } },
             { new: true },
@@ -47,7 +46,6 @@ connection.once('open', async () => {
             })
             .catch((err) => {
                 console.log(err);
-                res.status(500).json(err);
             })
         }
     
