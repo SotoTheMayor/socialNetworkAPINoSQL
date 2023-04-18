@@ -63,9 +63,10 @@ module.exports = {
             )
         )
         .then((user) =>
-            !user
-                ? res.status(404).json({ message: 'Thought created, but no user found with that ID'})
-                : res.json('Thought deleted')
+            // !user
+            //     ? res.status(404).json({ message: 'Thought created, but no user found with that ID'})
+            //     : 
+                res.json('Thought deleted')
         )
         .catch((err) => res.status(500).json(err));
     },

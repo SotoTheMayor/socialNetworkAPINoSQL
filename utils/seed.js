@@ -23,13 +23,8 @@ connection.once('open', async () => {
         users.push({
             username,
             email,
-            thoughts: {
-                _id: thoughtText[2],
-                thoughtText: thoughtText[1],
-            }
         })
         thoughts.push({
-            _id: thoughtText[2],
             username: thoughtText[0],
             thoughtText: thoughtText[1],
         });
@@ -37,6 +32,25 @@ connection.once('open', async () => {
 
     await User.collection.insertMany(users);
     await Thought.collection.insertMany(thoughts);
+
+    console.log(thoughts[1].username)
+
+    for (let i=0; i<thoughts.length; i++ ) {
+        Thought.findOne({ username: thoughts[i].username })
+        .then((thought) => console.log(thought))
+        .then((thought) => {
+         return User.findOneAndUpdate(
+            { username: thought.username },
+            { $addToSet: { thoughts: thought._id } },
+            { new: true },
+                );
+            })
+            .catch((err) => {
+                console.log(err);
+                res.status(500).json(err);
+            })
+        }
+    
 
     console.table(users);
     console.table(thoughts);

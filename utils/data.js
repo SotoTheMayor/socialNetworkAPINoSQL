@@ -30,7 +30,7 @@ const lastNames = [
     'Overmeyer',
     'Hall',
     'Reed'
-]
+];
 
 const thoughts = [
     'Why is there still snow on the ground?!?!',
@@ -42,7 +42,7 @@ const thoughts = [
     `My mom says I'm special`,
     `Whoever says the Great British Bakeoff isn't the best show ever made is a LIAR`,
     `Has there been any more information about that one political thing yet?`
-]
+];
 
 const emailAddress = [
     'none',
@@ -55,7 +55,7 @@ const emailAddress = [
     'philodendron',
     'monstera',
     'pothos',
-]
+];
 
 const emailDomain = [
     'none',
@@ -76,9 +76,7 @@ const emailDomain = [
     'h',
     'i',
     'j'
-]
-
-// const users = [];
+];
 
 const randomArrItem = (arr) => arr[Math.floor(Math.random() * arr.length)];
 
@@ -86,29 +84,28 @@ const randomName = () =>
     `${randomArrItem(firstNames)} ${randomArrItem(lastNames)}`;
 
 const randomEmail = () =>
-    `${randomArrItem(emailAddress)}@${randomArrItem(emailDomain)}.com`
-
-// const randomThought = () =>
-//     `${randomArrItem(thoughts)}`
-function rand () {Math.floor(Math.random() * 10000)};
+    `${randomArrItem(emailAddress)}@${randomArrItem(emailDomain)}.com`;
 
 const randomThought = (username) => {
     let results = [];
-    results = [username, randomArrItem(thoughts), rand()];
+    results = [username, randomArrItem(thoughts)];
         return results;
     }
 
-// const randomThought = (username, int) => {
-//     let results = [];
-//     let n = Math.floor(Math.random() * int)
-//     for (let i = 0; i < n; i++) {
-//         results.push({
-//             username: username,
-//             thoughtText: randomArrItem(thoughts),
-//             thoughtId: Math.floor(Math.random() * 100),
-//         });
-//         return results;
-//     }
+// const associateUser = (i) => {
+//     Thought.findOne({ username: i.username })
+//     .then((thought) => console.log(thought))
+//     .then((thought) => {
+//      return User.findOneAndUpdate(
+//         { username: thought.username },
+//         { $addToSet: { thoughts: thought._id } },
+//         { new: true },
+//             );
+//         })
+//         .catch((err) => {
+//             console.log(err);
+//             res.status(500).json(err);
+//         })
 // }
 
 // const thoughtReactions = (int) => {
@@ -126,4 +123,4 @@ const randomThought = (username) => {
 //     }
 // }
 
-module.exports = { randomName, randomThought, randomEmail}
+module.exports = { randomName, randomThought, randomEmail }
