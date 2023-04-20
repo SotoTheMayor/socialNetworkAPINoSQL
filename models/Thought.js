@@ -2,6 +2,7 @@ const { Schema, model, get } = require('mongoose');
 const { User } = require('../models');
 const dayjs = require('dayjs');
 
+//subdocument reaction for users reacting to other user (or their own) thoughts
 const reactionSchema = new Schema(
     {
         reactionId: [{
@@ -56,6 +57,7 @@ const thoughtSchema = new Schema(
     },
 );
 
+//counts up total reactions and adds to thought collection
 thoughtSchema.virtual('reactionCount')
     .get(function () {
         return this.reactions.length;

@@ -66,16 +66,16 @@ const emailDomain = [
     'plants',
     'moreplants',
     'idontknow',
-    'a',
-    'b',
-    'c',
-    'd',
-    'e',
-    'f',
-    'g',
-    'h',
-    'i',
-    'j'
+    'alpha',
+    'beta',
+    'card',
+    'dog',
+    'electric',
+    'food',
+    'glaze',
+    'happy',
+    'interesting',
+    'joker'
 ];
 
 const randomArrItem = (arr) => arr[Math.floor(Math.random() * arr.length)];
@@ -91,36 +91,5 @@ const randomThought = (username) => {
     results = [username, randomArrItem(thoughts)];
         return results;
     }
-
-// const associateUser = (i) => {
-//     Thought.findOne({ username: i.username })
-//     .then((thought) => console.log(thought))
-//     .then((thought) => {
-//      return User.findOneAndUpdate(
-//         { username: thought.username },
-//         { $addToSet: { thoughts: thought._id } },
-//         { new: true },
-//             );
-//         })
-//         .catch((err) => {
-//             console.log(err);
-//             res.status(500).json(err);
-//         })
-// }
-
-// const thoughtReactions = (int) => {
-//     if (int === 1) {
-//         return randomArrItem(reactions);
-//     }
-//     const results = [];
-//     for (let i = 0; i < int; i++) {
-//         results.push({
-//             modelQuality1: ' mQ1 ',
-//             tagBody: randomArrItem(tags),
-//             modelQuality2: ' mQ2 ',
-//         });
-//         return results;
-//     }
-// }
 
 module.exports = { randomName, randomThought, randomEmail }

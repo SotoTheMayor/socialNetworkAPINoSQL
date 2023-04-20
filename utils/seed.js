@@ -6,6 +6,7 @@ connection.on('error', (err) => err);
 
 connection.once('open', async () => {
     console.log('connected');
+    //drops prior db data
     if (Thought) {
         await Thought.deleteMany({ });
     }
@@ -15,7 +16,8 @@ connection.once('open', async () => {
 
     const users = [];
     const thoughts = []
-
+    
+    //loops through seed data in data.js
     for (let i=0; i<10; i++) {
         const username = randomName();
         const thoughtText = randomThought(username);
@@ -30,11 +32,13 @@ connection.once('open', async () => {
         });
     }
 
+    //adds seed data to collections
     await User.collection.insertMany(users);
     await Thought.collection.insertMany(thoughts);
 
     console.log(thoughts[1].username)
 
+    //adds thought ids to users
     for (let i=0; i<thoughts.length; i++ ) {
         await Thought.collection.findOne({ username: thoughts[i].username })
         .then((thought) => {

@@ -7,6 +7,7 @@ module.exports = {
             .catch((err) => res.status(500).json(err))
     },
 
+    //get request that searches by id in param
     getSingleUser(req, res) {
         User.findOne({ _id: req.params.userId })
         .then( async (user) => 
@@ -17,12 +18,14 @@ module.exports = {
         .catch((err) => res.status(500).json(err))
     },
 
+    //new user created with username and email post request
     createUser(req, res) {
         User.create(req.body)
             .then((user) => res.json(user))
             .catch((err) => res.status(500).json(err))
     },
 
+    //individual user updated from id in param
     updateUser(req, res) {
         User.findOneAndUpdate(
             { _id: req.params.userId },
@@ -42,6 +45,7 @@ module.exports = {
         .then((user) =>
         !user 
             ? res.status(404).json({ message: 'No user with that ID'}) 
+            //deletes all thoughts associated to deleted user
             : Thought.deleteMany({ _id: { $in: user.thoughts} })
         )
         .then(() => res.json({ message: 'User and associated thoughts and reactions deleted'}))
@@ -55,6 +59,7 @@ module.exports = {
             { runValidators: true, new: true },
         )
         .catch((err) => res.status(500).json(err));
+        //adds original user to their new friend's friend list too
         User.findOneAndUpdate(
             { _id: req.params.friendId },
             { $addToSet: { friends: req.params.userId } },
@@ -71,6 +76,7 @@ module.exports = {
             { runValidators: true, new: true },
         )
         .catch((err) => res.status(500).json(err));
+        //deletes former friend from other friend's list too
         User.findOneAndUpdate(
             { _id: req.params.friendId },
             { $pull: { friends: req.params.userId } },

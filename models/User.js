@@ -9,6 +9,7 @@ const userSchema = new Schema(
             unique: true,
             trim: true,
         },
+        //match is regex for testing that an email is input
         email: {
             type: String,
             required: true,
@@ -35,6 +36,7 @@ const userSchema = new Schema(
     },
 );
 
+//sums total friends and adds to user collection
 userSchema.virtual('totalFriends')
     .get(function () {
         return this.friends.length;

@@ -7,6 +7,7 @@ module.exports = {
             .catch((err) => res.status(500).json(err))
     },
 
+    //get route for single thought using id in url param
     getSingleThought(req, res) {
         Thought.findOne({ _id: req.params.thoughtId })
             .then((thought) => 
@@ -17,6 +18,7 @@ module.exports = {
             .catch((err) => res.status(500).json(err))
     },
 
+    //post route for a new thought
     createThought(req, res) {
         User.findOne({ username: req.body.username})
         .then((user) =>
@@ -38,6 +40,7 @@ module.exports = {
             });
     },
 
+    //put route for updating an already existing thought
     updateThought(req, res) {
         Thought.findOneAndUpdate(
             { _id: req.params.thoughtId },
@@ -51,6 +54,7 @@ module.exports = {
         )
     },
 
+    //delete route that removes it from the user's thought list too
     deleteThought(req, res) {
         Thought.findOneAndRemove({ _id: req.params.thoughtId })
         .then((thought) =>
@@ -62,15 +66,12 @@ module.exports = {
                 { new: true }
             )
         )
-        .then((user) =>
-            // !user
-            //     ? res.status(404).json({ message: 'Thought created, but no user found with that ID'})
-            //     : 
-                res.json('Thought deleted')
+        .then(() => res.json('Thought deleted')
         )
         .catch((err) => res.status(500).json(err));
     },
 
+    //adds a reaction to the individual thought
     addReaction(req, res) {
         Thought.findOneAndUpdate(
             { _id: req.params.thoughtId },
@@ -85,6 +86,7 @@ module.exports = {
         .catch((err) => res.status(500).json(err))
     },
 
+    //delete route for individual reaction
     removeReaction(req, res) {
         Thought.findOneAndUpdate(
             { _id: req.params.thoughtId },
